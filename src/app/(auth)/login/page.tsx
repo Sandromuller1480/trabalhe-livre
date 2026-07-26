@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -10,7 +10,7 @@ import { loginSchema, LoginInput } from '@/lib/validations/auth'
 import { login } from '@/actions/auth'
 import { KeyRound, Mail, ShieldAlert, ArrowLeft, Shield, Briefcase, UserCheck } from 'lucide-react'
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [loading, setLoading] = useState(false)
@@ -37,7 +37,6 @@ export default function LoginPage() {
     try {
       const res = await login(data)
       if (res.success) {
-        // Redirecionar para o destino guardado ou para a rota do perfil retornada pela action
         router.push(nextPath || res.redirectTo || '/')
         router.refresh()
       } else {
@@ -50,7 +49,6 @@ export default function LoginPage() {
     }
   }
 
-  // Atalho para contas demo
   const fillAndSubmitDemo = async (email: string) => {
     setValue('email', email)
     setValue('password', 'SenhaDemo123!')
@@ -231,5 +229,17 @@ export default function LoginPage() {
 
       </div>
     </main>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-slate-950 flex justify-center items-center">
+        <div className="text-white text-xs font-extrabold animate-pulse">Carregando formulário...</div>
+      </div>
+    }>
+      <LoginForm />
+    </Suspense>
   )
 }
