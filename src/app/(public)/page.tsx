@@ -165,12 +165,14 @@ export default async function HomePage() {
               que você precisa.
             </h1>
           </div>
-          <p className="text-base sm:text-lg text-slate-200 max-w-xl mb-12">
-            Pesquise profissionais em todo o Brasil, conheça seus portfólios e libere os contatos diretamente somente quando decidir conversar.
-          </p>
+          <div className="mt-8 sm:mt-10 lg:mt-12 w-full">
+            <p className="text-base sm:text-lg text-slate-200 max-w-xl mb-12">
+              Pesquise profissionais em todo o Brasil, conheça seus portfólios e libere os contatos diretamente somente quando decidir conversar.
+            </p>
 
-          {/* Form de Busca Central */}
-          <HomeSearchForm />
+            {/* Form de Busca Central */}
+            <HomeSearchForm />
+          </div>
         </div>
       </section>
 
