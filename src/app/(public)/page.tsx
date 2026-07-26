@@ -171,7 +171,9 @@ export default async function HomePage() {
             </p>
 
             {/* Form de Busca Central */}
-            <HomeSearchForm />
+            <div className="flex w-full justify-center">
+              <HomeSearchForm />
+            </div>
           </div>
         </div>
       </section>
