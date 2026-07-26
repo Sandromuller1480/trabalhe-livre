@@ -149,19 +149,19 @@ export default async function HomePage() {
         style={{
           backgroundImage: "url('/imagens/HERO PLATAFORMA TRABALHE LIVRE.png')",
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundPosition: 'center right',
         }}
       >
-        <div className="absolute inset-0 bg-slate-950/70 z-0"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-slate-950/25 z-0"></div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full flex flex-col items-center text-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full flex flex-col items-start text-left">
           <span className="text-xs font-bold text-secondary-base uppercase tracking-widest bg-secondary-base/10 px-4 py-1.5 rounded-full mb-6">
             A Maior Rede de Serviços do Brasil
           </span>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 max-w-4xl leading-tight">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 max-w-2xl leading-tight">
             Encontre profissionais para o <span className="text-primary-base">serviço</span> que você precisa.
           </h1>
-          <p className="text-base sm:text-lg text-slate-300 max-w-2xl mb-12">
+          <p className="text-base sm:text-lg text-slate-200 max-w-xl mb-12">
             Pesquise profissionais em todo o Brasil, conheça seus portfólios e libere os contatos diretamente somente quando decidir conversar.
           </p>
 
