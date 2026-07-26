@@ -165,7 +165,9 @@ export default async function HomePage() {
           </div>
           <div className="mt-8 sm:mt-10 lg:mt-12 w-full">
             <p className="text-base sm:text-lg text-primary-base max-w-xl mb-12">
-              Pesquise profissionais em todo o Brasil, conheça seus portfólios e libere os contatos diretamente somente quando decidir conversar.
+              Pesquise profissionais em todo o Brasil,<br />
+              conheça seus portfólios e libere os contatos<br />
+              diretamente somente quando decidir conversar.
             </p>
 
             {/* Form de Busca Central */}
