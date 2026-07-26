@@ -78,6 +78,42 @@ on conflict (id) do update set
   role = excluded.role,
   aud = excluded.aud;
 
+-- Sincronizar identidade de login por e-mail do administrador no Supabase Auth
+delete from auth.identities
+where user_id = 'd0000000-0000-0000-0000-000000000001'
+  and provider = 'email';
+
+insert into auth.identities (
+  id,
+  user_id,
+  provider_id,
+  identity_data,
+  provider,
+  last_sign_in_at,
+  created_at,
+  updated_at
+) values (
+  'd0000000-0000-0000-0000-000000000001',
+  'd0000000-0000-0000-0000-000000000001',
+  'd0000000-0000-0000-0000-000000000001',
+  jsonb_build_object(
+    'sub', 'd0000000-0000-0000-0000-000000000001',
+    'email', 'trabalhelivre@gmail.com',
+    'email_verified', true,
+    'phone_verified', false
+  ),
+  'email',
+  now(),
+  now(),
+  now()
+)
+on conflict (id) do update set
+  user_id = excluded.user_id,
+  provider_id = excluded.provider_id,
+  identity_data = excluded.identity_data,
+  provider = excluded.provider,
+  updated_at = now();
+
 -- Inserir nos Perfis Públicos (profiles)
 insert into public.profiles (id, role, email, phone, full_name) values
   ('d0000000-0000-0000-0000-000000000001', 'admin', 'trabalhelivre@gmail.com', null, 'Administrador TL'),
