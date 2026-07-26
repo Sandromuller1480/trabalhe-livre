@@ -1,0 +1,19 @@
+{
+  "name": "Trabalhe Livre",
+  "short_name": "TrabalheLivre",
+  "description": "Seu trabalho. Sua liberdade. Suas oportunidades. Conectando profissionais autônomos a clientes em todo o Brasil.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#090d16",
+  "theme_color": "#0947a5",
+  "orientation": "portrait-primary",
+  "categories": ["business", "utilities"],
+  "icons": [
+    {
+      "src": "/imagens/ÍCONE TRABALHE LIVRE.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
