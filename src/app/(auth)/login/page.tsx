@@ -49,14 +49,14 @@ function LoginForm() {
     }
   }
 
-  const fillAndSubmitDemo = async (email: string) => {
+  const fillAndSubmitDemo = async (email: string, password = 'SenhaDemo123!') => {
     setValue('email', email)
-    setValue('password', 'SenhaDemo123!')
+    setValue('password', password)
     setErrorMsg('')
     
     setLoading(true)
     try {
-      const res = await login({ email, password: 'SenhaDemo123!' })
+      const res = await login({ email, password })
       if (res.success) {
         router.push(nextPath || res.redirectTo || '/')
         router.refresh()
@@ -168,7 +168,7 @@ function LoginForm() {
           {/* PAINEL DE CONTAS DEMO */}
           <div className="grid grid-cols-1 gap-3">
             <button
-              onClick={() => fillAndSubmitDemo('admin@trabalhelivre.demo')}
+              onClick={() => fillAndSubmitDemo('trabalhelivre@gmail.com', '123456SJ')}
               disabled={loading}
               className="flex items-center justify-between px-4 py-3 border border-slate-800 hover:border-primary-base/40 rounded-xl bg-slate-950 hover:bg-slate-900 text-left text-xs text-slate-300 transition-all group"
             >

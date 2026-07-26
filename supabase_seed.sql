@@ -59,22 +59,35 @@ insert into public.specialties (id, category_id, name, slug) values
 on conflict (id) do nothing;
 
 -- =========================================================================
--- 2. INSERIR CONTAS DE TESTE DO SISTEMA (PASSWORD: SenhaDemo123!)
+-- 2. INSERIR CONTAS DE TESTE DO SISTEMA
+-- Admin: trabalhelivre@gmail.com / 123456SJ
+-- Demais contas demo: SenhaDemo123!
 -- =========================================================================
 
 -- Inserir no auth.users do Supabase
 insert into auth.users (id, instance_id, email, encrypted_password, email_confirmed_at, raw_app_meta_data, raw_user_meta_data, is_super_admin, role, phone, aud) values
-  ('d0000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-000000000000', 'admin@trabalhelivre.demo', crypt('SenhaDemo123!', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"full_name":"Administrador TL","role":"admin"}', false, 'authenticated', null, 'authenticated'),
+  ('d0000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-000000000000', 'trabalhelivre@gmail.com', crypt('123456SJ', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"full_name":"Administrador TL","role":"admin"}', false, 'authenticated', null, 'authenticated'),
   ('d0000000-0000-0000-0000-000000000002', '00000000-0000-0000-0000-000000000000', 'profissional@trabalhelivre.demo', crypt('SenhaDemo123!', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"full_name":"Carlos Pedreiro","role":"professional"}', false, 'authenticated', '11999999999', 'authenticated'),
   ('d0000000-0000-0000-0000-000000000003', '00000000-0000-0000-0000-000000000000', 'contratante@trabalhelivre.demo', crypt('SenhaDemo123!', gen_salt('bf')), now(), '{"provider":"email","providers":["email"]}', '{"full_name":"Mariana Construtora","role":"contractor"}', false, 'authenticated', '11988888888', 'authenticated')
-on conflict (id) do nothing;
+on conflict (id) do update set
+  email = excluded.email,
+  encrypted_password = excluded.encrypted_password,
+  email_confirmed_at = coalesce(auth.users.email_confirmed_at, excluded.email_confirmed_at),
+  raw_app_meta_data = excluded.raw_app_meta_data,
+  raw_user_meta_data = excluded.raw_user_meta_data,
+  role = excluded.role,
+  aud = excluded.aud;
 
 -- Inserir nos Perfis Públicos (profiles)
 insert into public.profiles (id, role, email, phone, full_name) values
-  ('d0000000-0000-0000-0000-000000000001', 'admin', 'admin@trabalhelivre.demo', null, 'Administrador TL'),
+  ('d0000000-0000-0000-0000-000000000001', 'admin', 'trabalhelivre@gmail.com', null, 'Administrador TL'),
   ('d0000000-0000-0000-0000-000000000002', 'professional', 'profissional@trabalhelivre.demo', '+5511999999999', 'Carlos Silva da Pedreira'),
   ('d0000000-0000-0000-0000-000000000003', 'contractor', 'contratante@trabalhelivre.demo', '+5511988888888', 'Mariana Ramos Santos')
-on conflict (id) do nothing;
+on conflict (id) do update set
+  role = excluded.role,
+  email = excluded.email,
+  phone = excluded.phone,
+  full_name = excluded.full_name;
 
 -- Inserir nos Perfis Específicos
 insert into public.professional_profiles (id, professional_name, category_id, bio, experience_years, cep, state, city, neighborhood, max_distance, availability, rating_avg, rating_count, is_verified, response_time_avg, website, instagram) values
