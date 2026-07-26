@@ -158,7 +158,7 @@ export default async function HomePage() {
           <span className="text-xs font-bold text-secondary-base uppercase tracking-widest bg-secondary-base/10 px-4 py-1.5 rounded-full mb-6">
             A Maior Rede de Serviços do Brasil
           </span>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 max-w-2xl leading-tight">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-6 max-w-2xl leading-tight">
             Encontre profissionais para o <span className="text-primary-base">serviço</span> que você precisa.
           </h1>
           <p className="text-base sm:text-lg text-slate-200 max-w-xl mb-12">
