@@ -30,11 +30,11 @@ export default function HomeSearchForm() {
   return (
     <form 
       onSubmit={handleSearch}
-      className="w-full max-w-4xl bg-card-custom/90 backdrop-blur-md p-4 sm:p-6 rounded-2xl sm:rounded-full border border-border-custom shadow-2xl flex flex-col sm:flex-row items-center gap-4 sm:gap-2 transition-all duration-300 hover:shadow-primary-base/5"
+      className="w-full max-w-3xl bg-card-custom/90 backdrop-blur-md p-3 sm:p-3 rounded-2xl sm:rounded-[2rem] border border-border-custom shadow-2xl flex flex-col sm:flex-row items-center gap-3 sm:gap-2 transition-all duration-300 hover:shadow-primary-base/5"
     >
       
       {/* Serviço */}
-      <div className="flex-1 w-full flex items-center gap-3 px-4 border-b sm:border-b-0 sm:border-r border-border-custom pb-3 sm:pb-0">
+      <div className="flex-1 w-full flex items-center gap-3 px-3 border-b sm:border-b-0 sm:border-r border-border-custom pb-2 sm:pb-0">
         <Search className="w-5 h-5 text-slate-400 flex-shrink-0" />
         <input 
           type="text" 
@@ -46,7 +46,7 @@ export default function HomeSearchForm() {
       </div>
 
       {/* Estado */}
-      <div className="w-full sm:w-48 flex items-center gap-2 px-4 border-b sm:border-b-0 sm:border-r border-border-custom pb-3 sm:pb-0">
+      <div className="w-full sm:w-44 flex items-center gap-2 px-3 border-b sm:border-b-0 sm:border-r border-border-custom pb-2 sm:pb-0">
         <MapPin className="w-4 h-4 text-slate-400 flex-shrink-0" />
         <select
           value={selectedUf}
@@ -63,7 +63,7 @@ export default function HomeSearchForm() {
       </div>
 
       {/* Cidade */}
-      <div className="w-full sm:w-56 flex items-center gap-2 px-4 pb-3 sm:pb-0">
+      <div className="w-full sm:w-48 flex items-center gap-2 px-3 pb-2 sm:pb-0">
         <MapPin className="w-4 h-4 text-slate-400 flex-shrink-0" />
         <select
           value={selectedCity}
@@ -83,7 +83,7 @@ export default function HomeSearchForm() {
       {/* Botão Buscar */}
       <button 
         type="submit"
-        className="w-full sm:w-auto btn-premium-primary !py-3.5 !px-8 !rounded-xl sm:!rounded-full text-sm shrink-0"
+        className="w-full sm:w-auto btn-premium-primary !py-2.5 !px-7 !rounded-xl sm:!rounded-2xl text-sm shrink-0"
       >
         Buscar
       </button>
