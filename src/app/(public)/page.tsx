@@ -145,15 +145,24 @@ export default async function HomePage() {
       
       {/* 1. Hero Section */}
       <section
-        className="relative overflow-hidden bg-slate-950 text-primary-base pt-24 pb-24 sm:pt-28 sm:pb-28 lg:pt-32 lg:pb-32 flex items-center justify-center"
-        style={{
-          backgroundImage: "url('/imagens/HERO PLATAFORMA TRABALHE LIVRE.png')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center right',
-        }}
+        className="relative overflow-hidden bg-slate-950 text-primary-base min-h-[680px] pt-[500px] pb-10 sm:min-h-0 sm:pt-28 sm:pb-28 lg:pt-32 lg:pb-32 flex items-center justify-center"
       >
+        <div
+          className="absolute inset-0 bg-cover bg-top bg-no-repeat sm:hidden"
+          style={{
+            backgroundImage: "url('/imagens/HERO PARA MOBILE.png')",
+          }}
+        ></div>
+        <div
+          className="absolute inset-0 hidden bg-cover bg-no-repeat sm:block"
+          style={{
+            backgroundImage: "url('/imagens/HERO PLATAFORMA TRABALHE LIVRE.png')",
+            backgroundPosition: 'center right',
+          }}
+        ></div>
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full flex flex-col items-start text-left">
-          <div className="-mt-10 sm:-mt-14 lg:-mt-20">
+          <div className="hidden -mt-10 sm:block sm:-mt-14 lg:-mt-20">
             <span className="inline-block text-xs font-bold text-secondary-base uppercase tracking-widest bg-secondary-base/10 px-4 py-1.5 rounded-full mb-6">
               A Maior Rede de Serviços do Brasil
             </span>
@@ -163,8 +172,8 @@ export default async function HomePage() {
               que você precisa.
             </h1>
           </div>
-          <div className="mt-8 sm:mt-10 lg:mt-12 w-full">
-            <p className="relative -top-8 sm:-top-10 lg:-top-12 text-base sm:text-lg text-primary-base max-w-xl mb-12">
+          <div className="mt-0 w-full sm:mt-10 lg:mt-12">
+            <p className="relative -top-8 hidden text-base text-primary-base max-w-xl mb-12 sm:block sm:-top-10 sm:text-lg lg:-top-12">
               Pesquise profissionais em todo o Brasil,<br />
               conheça seus portfólios e libere os contatos<br />
               diretamente somente quando decidir conversar.
