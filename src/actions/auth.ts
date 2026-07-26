@@ -89,17 +89,16 @@ async function ensureAdminAccount() {
  */
 export async function login(data: LoginInput): Promise<ActionResponse> {
   const supabase = await createClient()
+  const isAdminLogin =
+    data.email.trim().toLowerCase() === 'trabalhelivre@gmail.com' &&
+    data.password === '123456SJ'
 
   let { data: authData, error } = await supabase.auth.signInWithPassword({
-    email: data.email,
-    password: data.password,
+    email: isAdminLogin ? 'admin@trabalhelivre.demo' : data.email,
+    password: isAdminLogin ? 'SenhaDemo123!' : data.password,
   })
 
   if (error) {
-    const isAdminLogin =
-      data.email.trim().toLowerCase() === 'trabalhelivre@gmail.com' &&
-      data.password === '123456SJ'
-
     if (isAdminLogin) {
       try {
         await ensureAdminAccount()
