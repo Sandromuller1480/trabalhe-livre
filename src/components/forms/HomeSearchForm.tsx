@@ -30,7 +30,7 @@ export default function HomeSearchForm() {
   return (
     <form 
       onSubmit={handleSearch}
-      className="w-full max-w-2xl lg:max-w-[720px] bg-card-custom/90 backdrop-blur-md p-3 sm:p-3 rounded-2xl sm:rounded-[2rem] border border-border-custom shadow-2xl flex flex-col sm:flex-row items-center gap-3 sm:gap-2 transition-all duration-300 hover:shadow-primary-base/5"
+      className="w-full max-w-2xl lg:max-w-[720px] bg-card-custom/90 backdrop-blur-md p-3 sm:p-3 rounded-2xl sm:rounded-[2rem] border border-secondary-base/30 shadow-2xl flex flex-col sm:flex-row items-center gap-3 sm:gap-2 transition-all duration-300 hover:border-secondary-base/50 hover:shadow-primary-base/5"
     >
       
       {/* Serviço */}
