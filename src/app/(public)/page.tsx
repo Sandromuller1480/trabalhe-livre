@@ -152,8 +152,6 @@ export default async function HomePage() {
           backgroundPosition: 'center right',
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-slate-950/25 z-0"></div>
-
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full flex flex-col items-start text-left">
           <div className="-mt-10 sm:-mt-14 lg:-mt-20">
             <span className="inline-block text-xs font-bold text-secondary-base uppercase tracking-widest bg-secondary-base/10 px-4 py-1.5 rounded-full mb-6">
