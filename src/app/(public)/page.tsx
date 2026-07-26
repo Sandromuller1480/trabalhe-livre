@@ -145,7 +145,7 @@ export default async function HomePage() {
       
       {/* 1. Hero Section */}
       <section
-        className="relative overflow-hidden bg-slate-950 text-white pt-24 pb-24 sm:pt-28 sm:pb-28 lg:pt-32 lg:pb-32 flex items-center justify-center"
+        className="relative overflow-hidden bg-slate-950 text-primary-base pt-24 pb-24 sm:pt-28 sm:pb-28 lg:pt-32 lg:pb-32 flex items-center justify-center"
         style={{
           backgroundImage: "url('/imagens/HERO PLATAFORMA TRABALHE LIVRE.png')",
           backgroundSize: 'cover',
@@ -164,7 +164,7 @@ export default async function HomePage() {
             </h1>
           </div>
           <div className="mt-8 sm:mt-10 lg:mt-12 w-full">
-            <p className="text-base sm:text-lg text-slate-200 max-w-xl mb-12">
+            <p className="text-base sm:text-lg text-primary-base max-w-xl mb-12">
               Pesquise profissionais em todo o Brasil, conheça seus portfólios e libere os contatos diretamente somente quando decidir conversar.
             </p>
 
