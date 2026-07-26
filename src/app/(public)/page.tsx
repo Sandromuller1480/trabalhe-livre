@@ -164,7 +164,7 @@ export default async function HomePage() {
             </h1>
           </div>
           <div className="mt-8 sm:mt-10 lg:mt-12 w-full">
-            <p className="text-base sm:text-lg text-primary-base max-w-xl mb-12">
+            <p className="relative -top-8 sm:-top-10 lg:-top-12 text-base sm:text-lg text-primary-base max-w-xl mb-12">
               Pesquise profissionais em todo o Brasil,<br />
               conheça seus portfólios e libere os contatos<br />
               diretamente somente quando decidir conversar.
