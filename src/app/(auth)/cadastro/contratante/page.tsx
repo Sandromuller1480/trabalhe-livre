@@ -124,11 +124,11 @@ export default function ContractorRegisterPage() {
         <div className="flex flex-col items-center text-center">
           <Link href="/" className="mb-6 hover:opacity-90 transition-opacity">
             <Image 
-              src="/imagens/LOGOTIPO TRABALHE LIVRE.png" 
+              src="/imagens/ÍCONE.png" 
               alt="Trabalhe Livre" 
-              width={200} 
-              height={55} 
-              className="h-10 w-auto object-contain brightness-0 invert" 
+              width={80} 
+              height={80} 
+              className="h-14 w-auto object-contain" 
             />
           </Link>
           <h2 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
