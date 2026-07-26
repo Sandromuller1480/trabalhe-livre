@@ -62,12 +62,12 @@ export default function Header({ initialUser }: HeaderProps) {
           <div className="flex-shrink-0 flex items-center">
             <Link href="/" className="flex items-center gap-2">
               <Image 
-                src="/imagens/LOGOTIPO TRABALHE LIVRE.png" 
+                src="/imagens/LOGOTIPO TEXTO NA FRENTE.png" 
                 alt="Trabalhe Livre" 
-                width={180} 
-                height={50} 
+                width={260} 
+                height={44} 
                 priority
-                className="h-10 w-auto object-contain"
+                className="h-12 w-auto object-contain"
               />
             </Link>
           </div>
