@@ -29,7 +29,7 @@ export async function login(data: LoginInput): Promise<ActionResponse> {
     }
   }
 
-  const role = authData.user?.user_metadata?.role || authData.user?.raw_user_meta_data?.role
+  const role = authData.user?.user_metadata?.role
 
   let redirectTo = '/contratante'
   if (role === 'admin') redirectTo = '/admin'
