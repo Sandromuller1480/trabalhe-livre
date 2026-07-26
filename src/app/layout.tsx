@@ -16,6 +16,11 @@ export const metadata: Metadata = {
   title: "Trabalhe Livre | Seu trabalho. Sua liberdade. Suas oportunidades.",
   description: "A maior plataforma nacional de serviços autônomos. Encontre pintores, eletricistas, diaristas, profissionais de TI e beleza perto de você.",
   manifest: "/manifest.json",
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/apple-icon.png",
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
@@ -54,4 +59,3 @@ export default function RootLayout({
     </html>
   );
 }
-
