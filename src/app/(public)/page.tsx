@@ -145,7 +145,7 @@ export default async function HomePage() {
       
       {/* 1. Hero Section */}
       <section
-        className="relative overflow-hidden bg-slate-950 text-white pt-36 pb-16 sm:pt-44 sm:pb-20 lg:pt-52 lg:pb-24 flex items-center justify-center"
+        className="relative overflow-hidden bg-slate-950 text-white pt-24 pb-24 sm:pt-28 sm:pb-28 lg:pt-32 lg:pb-32 flex items-center justify-center"
         style={{
           backgroundImage: "url('/imagens/HERO PLATAFORMA TRABALHE LIVRE.png')",
           backgroundSize: 'cover',
