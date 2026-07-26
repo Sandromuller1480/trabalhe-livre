@@ -159,7 +159,9 @@ export default async function HomePage() {
             A Maior Rede de Serviços do Brasil
           </span>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-6 max-w-2xl leading-tight">
-            Encontre profissionais para o <span className="text-primary-base">serviço</span> que você precisa.
+            Encontre profissionais<br />
+            para o <span className="text-primary-base">serviço</span><br />
+            que você precisa.
           </h1>
           <p className="text-base sm:text-lg text-slate-200 max-w-xl mb-12">
             Pesquise profissionais em todo o Brasil, conheça seus portfólios e libere os contatos diretamente somente quando decidir conversar.
