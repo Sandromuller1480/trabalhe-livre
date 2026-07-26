@@ -22,7 +22,9 @@ import {
   ShieldAlert, 
   ArrowLeft,
   ChevronRight,
-  ChevronLeft
+  ChevronLeft,
+  Eye,
+  EyeOff
 } from 'lucide-react'
 
 export default function ProfessionalRegisterPage() {
@@ -31,6 +33,8 @@ export default function ProfessionalRegisterPage() {
   const [categories, setCategories] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
   // Instanciar cliente browser do Supabase
   const supabase = createClient()
@@ -268,12 +272,20 @@ export default function ProfessionalRegisterPage() {
                     <label className="block text-xs font-bold text-slate-400 uppercase">Senha</label>
                     <div className="relative">
                       <input
-                        type="password"
+                        type={showPassword ? 'text' : 'password'}
                         placeholder="******"
                         {...register('password')}
-                        className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-800 bg-slate-950 text-white text-xs focus:outline-none focus:ring-2 focus:ring-secondary-base"
+                        className="w-full pl-10 pr-11 py-3 rounded-xl border border-slate-800 bg-slate-950 text-white text-xs focus:outline-none focus:ring-2 focus:ring-secondary-base"
                       />
                       <KeyRound className="w-4 h-4 text-slate-600 absolute left-3 top-1/2 -translate-y-1/2" />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword((value) => !value)}
+                        aria-label={showPassword ? 'Ocultar senha' : 'Mostrar senha'}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-secondary-base transition-colors"
+                      >
+                        {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                      </button>
                     </div>
                     {errors.password && (
                       <p className="text-[10px] text-red-400 font-bold">{errors.password.message}</p>
@@ -284,12 +296,20 @@ export default function ProfessionalRegisterPage() {
                     <label className="block text-xs font-bold text-slate-400 uppercase">Confirmar Senha</label>
                     <div className="relative">
                       <input
-                        type="password"
+                        type={showConfirmPassword ? 'text' : 'password'}
                         placeholder="******"
                         {...register('confirm_password')}
-                        className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-800 bg-slate-950 text-white text-xs focus:outline-none focus:ring-2 focus:ring-secondary-base"
+                        className="w-full pl-10 pr-11 py-3 rounded-xl border border-slate-800 bg-slate-950 text-white text-xs focus:outline-none focus:ring-2 focus:ring-secondary-base"
                       />
                       <KeyRound className="w-4 h-4 text-slate-600 absolute left-3 top-1/2 -translate-y-1/2" />
+                      <button
+                        type="button"
+                        onClick={() => setShowConfirmPassword((value) => !value)}
+                        aria-label={showConfirmPassword ? 'Ocultar confirmação de senha' : 'Mostrar confirmação de senha'}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-secondary-base transition-colors"
+                      >
+                        {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                      </button>
                     </div>
                     {errors.confirm_password && (
                       <p className="text-[10px] text-red-400 font-bold">{errors.confirm_password.message}</p>
