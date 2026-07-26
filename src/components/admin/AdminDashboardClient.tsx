@@ -32,8 +32,9 @@ interface VerificationItem {
   id: string
   professional_id: string
   professional_name: string
-  document_type: string
-  document_url: string
+  document_front_url: string
+  document_back_url: string
+  selfie_url: string
   status: string
   created_at: string
 }
@@ -255,17 +256,24 @@ export default function AdminDashboardClient({
                     <div className="space-y-2">
                       <h4 className="font-extrabold text-base text-slate-800 dark:text-slate-100">{item.professional_name}</h4>
                       <p className="text-xs text-slate-400">
-                        Tipo de documento fornecido: <strong className="text-slate-600 dark:text-slate-300">{item.document_type}</strong>
+                        Documentos fornecidos para validação de identidade.
                       </p>
                       <div className="border border-border-custom p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/40 text-xs flex items-center justify-between">
-                        <span className="text-slate-400 font-bold">Arquivo anexado (RG/CNH):</span>
-                        <a 
-                          href={item.document_url} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="text-primary-base font-extrabold hover:underline"
-                        >
-                          Visualizar Documento Fictício
+                        <span className="text-slate-400 font-bold">Documento frente:</span>
+                        <a href={item.document_front_url} target="_blank" rel="noopener noreferrer" className="text-primary-base font-extrabold hover:underline">
+                          Visualizar
+                        </a>
+                      </div>
+                      <div className="border border-border-custom p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/40 text-xs flex items-center justify-between">
+                        <span className="text-slate-400 font-bold">Documento verso:</span>
+                        <a href={item.document_back_url} target="_blank" rel="noopener noreferrer" className="text-primary-base font-extrabold hover:underline">
+                          Visualizar
+                        </a>
+                      </div>
+                      <div className="border border-border-custom p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/40 text-xs flex items-center justify-between">
+                        <span className="text-slate-400 font-bold">Selfie:</span>
+                        <a href={item.selfie_url} target="_blank" rel="noopener noreferrer" className="text-primary-base font-extrabold hover:underline">
+                          Visualizar
                         </a>
                       </div>
                     </div>

@@ -41,8 +41,9 @@ export default async function AdminDashboardPage() {
     .select(`
       id,
       professional_id,
-      document_type,
-      document_url,
+      document_front_url,
+      document_back_url,
+      selfie_url,
       status,
       created_at,
       professional:professional_id (
@@ -56,8 +57,9 @@ export default async function AdminDashboardPage() {
     id: v.id,
     professional_id: v.professional_id,
     professional_name: v.professional?.professional_name || 'Profissional Autônomo',
-    document_type: v.document_type,
-    document_url: v.document_url,
+    document_front_url: v.document_front_url,
+    document_back_url: v.document_back_url,
+    selfie_url: v.selfie_url,
     status: v.status,
     created_at: v.created_at,
   }))

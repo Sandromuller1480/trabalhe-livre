@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { updateAvailability } from '@/actions/professional'
-import { formatPhone } from '@/lib/utils/format'
+import { formatPhone, getInitials } from '@/lib/utils/format'
 import { 
   CheckCircle, 
   XCircle, 

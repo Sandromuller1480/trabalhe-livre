@@ -42,17 +42,19 @@ export default async function ProfessionalProfilePage({ params }: PageProps) {
   // 4. Buscar avaliações recebidas
   const { data: rawReviews } = await supabase
     .from('reviews')
-    .select(`
-      id,
-      rating,
-      comment,
-      created_at,
-      profiles:contractor_id (
-        full_name
-      )
-    `)
+    .select('id, rating, comment, created_at, contractor_id')
     .eq('professional_id', id)
     .order('created_at', { ascending: false })
+
+  const contractorIds = Array.from(new Set((rawReviews || []).map((r: any) => r.contractor_id)))
+  const { data: reviewerProfiles } = contractorIds.length > 0
+    ? await adminClient
+        .from('profiles')
+        .select('id, full_name')
+        .in('id', contractorIds)
+    : { data: [] }
+
+  const reviewerById = new Map((reviewerProfiles || []).map((profile: any) => [profile.id, profile]))
 
   // Mapear reviews para extrair o nome do contratante adequadamente
   const reviews = (rawReviews || []).map((r: any) => ({
@@ -60,7 +62,7 @@ export default async function ProfessionalProfilePage({ params }: PageProps) {
     rating: r.rating,
     comment: r.comment,
     created_at: r.created_at,
-    full_name: r.profiles?.full_name || 'Contratante Anônimo',
+    full_name: reviewerById.get(r.contractor_id)?.full_name || 'Contratante Anônimo',
   }))
 
   // 5. Determinar estado de desbloqueio e créditos do contratante
@@ -102,30 +104,41 @@ export default async function ProfessionalProfilePage({ params }: PageProps) {
     } else if (userRole === 'contractor') {
       // Se for contratante, checar se já desbloqueou este profissional
       const { data: unlockRecord } = await supabase
-        .from('unlocked_contacts')
-        .select('id')
+        .from('contact_unlocks')
+        .select('contractor_id')
         .eq('contractor_id', user.id)
         .eq('professional_id', id)
         .maybeSingle()
 
       if (unlockRecord) {
         initialUnlocked = true
-        // Buscar contatos desbloqueados utilizando a RPC segura
-        const { data: unlockedData } = await adminClient.rpc('get_unlocked_contact_info', {
-          p_contractor_id: user.id,
-          p_professional_id: id,
-        })
-        contactInfo = unlockedData
+
+        const { data: baseProfile } = await adminClient
+          .from('profiles')
+          .select('email, phone')
+          .eq('id', id)
+          .single()
+
+        const { data: fullProfile } = await adminClient
+          .from('professional_profiles')
+          .select('website, instagram, facebook, tiktok, youtube, linkedin')
+          .eq('id', id)
+          .single()
+
+        contactInfo = {
+          ...baseProfile,
+          ...fullProfile,
+        }
       }
 
       // Buscar carteira do contratante para saber o saldo de créditos
       const { data: wallet } = await supabase
-        .from('contractor_wallets')
-        .select('credits')
-        .eq('id', user.id)
+        .from('wallets')
+        .select('balance')
+        .eq('contractor_id', user.id)
         .single()
 
-      contractorCredits = wallet?.credits || 0
+      contractorCredits = wallet?.balance || 0
     }
   }
 

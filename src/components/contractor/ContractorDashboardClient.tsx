@@ -41,34 +41,37 @@ interface UnlockedProf {
   unlocked_at: string
 }
 
+interface CreditPackage {
+  id: string
+  name: string
+  credits: number
+  price: number
+}
+
 interface ContractorDashboardClientProps {
   contractorName: string
   credits: number
+  creditPackages: CreditPackage[]
   opportunities: Opportunity[]
   unlockedProfessionals: UnlockedProf[]
 }
 
-const CREDIT_PACKAGES = [
-  { id: 'bronze', name: 'Bronze', credits: 1, price: 5.00, discount: 'Preço padrão' },
-  { id: 'prata', name: 'Prata', credits: 5, price: 20.00, discount: 'Economize 20%' },
-  { id: 'ouro', name: 'Ouro (Melhor Custo)', credits: 10, price: 30.00, discount: 'Economize 40%' },
-]
-
 export default function ContractorDashboardClient({
   contractorName,
   credits,
+  creditPackages,
   opportunities,
   unlockedProfessionals,
 }: ContractorDashboardClientProps) {
   const [walletCredits, setWalletCredits] = useState(credits)
-  const [selectedPkg, setSelectedPkg] = useState<typeof CREDIT_PACKAGES[0] | null>(null)
+  const [selectedPkg, setSelectedPkg] = useState<CreditPackage | null>(null)
   const [payMethod, setPayMethod] = useState<'pix' | 'credit_card'>('pix')
   const [checkoutModalOpen, setCheckoutModalOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [checkoutStep, setCheckoutStep] = useState<'details' | 'simulated_gateway' | 'success'>('details')
   const [message, setMessage] = useState('')
 
-  const handleStartCheckout = (pkg: typeof CREDIT_PACKAGES[0]) => {
+  const handleStartCheckout = (pkg: CreditPackage) => {
     setSelectedPkg(pkg)
     setCheckoutStep('details')
     setCheckoutModalOpen(true)
@@ -165,11 +168,11 @@ export default function ContractorDashboardClient({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {CREDIT_PACKAGES.map((pkg) => (
+          {creditPackages.map((pkg) => (
             <div key={pkg.id} className="p-6 rounded-2xl border border-border-custom bg-slate-50 dark:bg-slate-900/40 flex flex-col justify-between items-center text-center gap-4 group">
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-wider bg-primary-base/10 text-primary-base px-3 py-1 rounded-full mb-3 inline-block">
-                  {pkg.discount}
+                  {pkg.credits === 1 ? 'Preço padrão' : 'Pacote com desconto'}
                 </span>
                 <h4 className="font-extrabold text-base mb-1">{pkg.name}</h4>
                 <strong className="text-2xl font-extrabold block text-slate-800 dark:text-slate-100 my-2">

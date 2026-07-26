@@ -22,6 +22,7 @@ import {
   Map, 
   AlertCircle,
   FileText,
+  Briefcase,
   Truck,
   Wrench,
   Calendar,

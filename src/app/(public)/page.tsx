@@ -60,7 +60,7 @@ const STATIC_CATEGORIES = [
 // Fallback estático de profissionais em destaque
 const STATIC_PROFESSIONALS = [
   {
-    id: 'u0000000-0000-0000-0000-000000000004',
+    id: 'e0000000-0000-0000-0000-000000000004',
     professional_name: 'João Pinturas Residenciais',
     category_name: 'Construção e reforma',
     city: 'São Paulo',
@@ -73,7 +73,7 @@ const STATIC_PROFESSIONALS = [
     bio: 'Pinturas internas e externas, aplicação de texturas, grafiato e efeitos modernos. Organização e limpeza impecáveis!'
   },
   {
-    id: 'u0000000-0000-0000-0000-000000000005',
+    id: 'e0000000-0000-0000-0000-000000000005',
     professional_name: 'Lúcia Limpezas',
     category_name: 'Limpeza e conservação',
     city: 'São Paulo',
@@ -86,7 +86,7 @@ const STATIC_PROFESSIONALS = [
     bio: 'Diarista detalhista com foco em residências de grande porte e apartamentos. Organizada, confiável e pontual.'
   },
   {
-    id: 'u0000000-0000-0000-0000-000000000011',
+    id: 'e0000000-0000-0000-0000-000000000011',
     professional_name: 'Felipe Montagem de Móveis',
     category_name: 'Serviços gerais',
     city: 'Rondonópolis',

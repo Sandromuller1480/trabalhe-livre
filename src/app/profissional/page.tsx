@@ -30,26 +30,27 @@ export default async function ProfessionalDashboardPage() {
 
   // 3. Buscar clientes que desbloquearam os contatos deste profissional
   const { data: rawUnlocks } = await adminClient
-    .from('unlocked_contacts')
-    .select(`
-      id,
-      created_at,
-      contractor_id,
-      profiles:contractor_id (
-        full_name,
-        phone,
-        email
-      )
-    `)
+    .from('contact_unlocks')
+    .select('created_at, contractor_id')
     .eq('professional_id', user.id)
     .order('created_at', { ascending: false })
 
+  const contractorIds = Array.from(new Set((rawUnlocks || []).map((u: any) => u.contractor_id)))
+  const { data: contractorProfiles } = contractorIds.length > 0
+    ? await adminClient
+        .from('profiles')
+        .select('id, full_name, phone, email')
+        .in('id', contractorIds)
+    : { data: [] }
+
+  const contractorById = new Map((contractorProfiles || []).map((profile: any) => [profile.id, profile]))
+
   const unlocks = (rawUnlocks || []).map((u: any) => ({
-    id: u.id,
+    id: `${u.contractor_id}-${u.created_at}`,
     created_at: u.created_at,
-    contractor_name: u.profiles?.full_name || 'Cliente Autônomo',
-    contractor_phone: u.profiles?.phone || '',
-    contractor_email: u.profiles?.email || '',
+    contractor_name: contractorById.get(u.contractor_id)?.full_name || 'Cliente Autônomo',
+    contractor_phone: contractorById.get(u.contractor_id)?.phone || '',
+    contractor_email: contractorById.get(u.contractor_id)?.email || '',
   }))
 
   // 4. Buscar total de propostas (candidaturas) enviadas

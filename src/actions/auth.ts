@@ -111,7 +111,7 @@ export async function registerProfessional(data: ProfessionalRegisterInput): Pro
     }
   } catch (err: any) {
     // Limpar o usuário criado na Auth em caso de falha de escrita no DB para permitir nova tentativa
-    await adminClient.auth.admin.deleteUser(userId)
+    await (adminClient.auth as any).admin.deleteUser(userId)
     return {
       success: false,
       message: err.message || 'Falha ao salvar dados complementares do profissional.',
@@ -188,7 +188,7 @@ export async function registerContractor(data: ContractorRegisterInput): Promise
     }
   } catch (err: any) {
     // Limpar o usuário em caso de falha
-    await adminClient.auth.admin.deleteUser(userId)
+    await (adminClient.auth as any).admin.deleteUser(userId)
     return {
       success: false,
       message: err.message || 'Falha ao salvar dados complementares do contratante.',

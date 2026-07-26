@@ -48,7 +48,7 @@ export async function buyCredits(packageId: string, paymentMethod: 'pix' | 'cred
     .single()
 
   if (payError || !payment) {
-    return { success: false, message: 'Falha ao iniciar pagamento: ' + payError.message }
+    return { success: false, message: 'Falha ao iniciar pagamento: ' + (payError?.message || 'Pagamento não retornado.') }
   }
 
   // --- SIMULAÇÃO DE APROVAÇÃO ---
@@ -116,23 +116,33 @@ export async function unlockProfessionalContact(professionalId: string): Promise
   revalidatePath(`/profissionais/${professionalId}`)
   revalidatePath('/contratante/desbloqueios')
 
-  // Se sucesso, obter os dados já desbloqueados utilizando a RPC segura
-  const { data: contactInfo, error: contactError } = await adminClient.rpc('get_unlocked_contact_info', {
-    p_contractor_id: user.id,
-    p_professional_id: professionalId,
-  })
+  // Se sucesso, obter os dados desbloqueados para devolver apenas ao contratante autenticado nesta action.
+  const { data: baseProfile, error: baseProfileError } = await adminClient
+    .from('profiles')
+    .select('email, phone')
+    .eq('id', professionalId)
+    .single()
 
-  if (contactError) {
+  const { data: professionalProfile, error: professionalProfileError } = await adminClient
+    .from('professional_profiles')
+    .select('website, instagram, facebook, tiktok, youtube, linkedin')
+    .eq('id', professionalId)
+    .single()
+
+  if (baseProfileError || professionalProfileError) {
     return {
       success: true,
-      message: 'Contato desbloqueado, mas falha ao obter detalhes: ' + contactError.message,
+      message: 'Contato desbloqueado, mas falha ao obter detalhes.',
     }
   }
 
   return {
     success: true,
     message: 'Contato desbloqueado com sucesso!',
-    data: contactInfo,
+    data: {
+      ...baseProfile,
+      ...professionalProfile,
+    },
   }
 }
 
@@ -178,7 +188,7 @@ export async function publishOpportunity(data: {
     .single()
 
   if (payError || !payment) {
-    return { success: false, message: 'Falha ao processar taxa de publicação: ' + payError.message }
+    return { success: false, message: 'Falha ao processar taxa de publicação: ' + (payError?.message || 'Pagamento não retornado.') }
   }
 
   // 2. Inserir oportunidade na fila de moderação (awaiting_moderation)
@@ -207,7 +217,7 @@ export async function publishOpportunity(data: {
     .single()
 
   if (reqError || !request) {
-    return { success: false, message: 'Falha ao salvar oportunidade: ' + reqError.message }
+    return { success: false, message: 'Falha ao salvar oportunidade: ' + (reqError?.message || 'Oportunidade não retornada.') }
   }
 
   // 3. Vincular imagens da oportunidade se houver
