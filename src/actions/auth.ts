@@ -3,12 +3,25 @@
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { LoginInput, ProfessionalRegisterInput, ContractorRegisterInput } from '@/lib/validations/auth'
-import { revalidatePath } from 'next/cache'
-
 interface ActionResponse {
   success: boolean
   message: string
   redirectTo?: string
+}
+
+type AuthAdminClient = ReturnType<typeof createAdminClient> & {
+  auth: ReturnType<typeof createAdminClient>['auth'] & {
+    admin: {
+      deleteUser: (userId: string) => Promise<{ error: Error | null }>
+    }
+  }
+}
+
+async function deleteAuthUser(adminClient: ReturnType<typeof createAdminClient>, userId: string) {
+  const { error } = await (adminClient as AuthAdminClient).auth.admin.deleteUser(userId)
+  if (error) {
+    console.error('Falha ao remover usuário criado durante rollback:', error)
+  }
 }
 
 /**
@@ -111,7 +124,7 @@ export async function registerProfessional(data: ProfessionalRegisterInput): Pro
     }
   } catch (err: any) {
     // Limpar o usuário criado na Auth em caso de falha de escrita no DB para permitir nova tentativa
-    await (adminClient.auth as any).admin.deleteUser(userId)
+    await deleteAuthUser(adminClient, userId)
     return {
       success: false,
       message: err.message || 'Falha ao salvar dados complementares do profissional.',
@@ -188,7 +201,7 @@ export async function registerContractor(data: ContractorRegisterInput): Promise
     }
   } catch (err: any) {
     // Limpar o usuário em caso de falha
-    await (adminClient.auth as any).admin.deleteUser(userId)
+    await deleteAuthUser(adminClient, userId)
     return {
       success: false,
       message: err.message || 'Falha ao salvar dados complementares do contratante.',
