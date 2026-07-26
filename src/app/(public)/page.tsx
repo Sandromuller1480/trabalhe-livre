@@ -144,11 +144,15 @@ export default async function HomePage() {
       <Header initialUser={user} />
       
       {/* 1. Hero Section */}
-      <section className="relative overflow-hidden bg-slate-950 text-white py-24 sm:py-32 flex items-center justify-center">
-        {/* Fundo Gradiente e Efeitos Estilizados */}
-        <div className="absolute inset-0 bg-radial-[at_top_right] from-slate-900 via-slate-950 to-slate-950 z-0"></div>
-        <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-primary-base/10 rounded-full blur-[100px] pointer-events-none"></div>
-        <div className="absolute bottom-10 left-1/4 w-[300px] h-[300px] bg-secondary-base/10 rounded-full blur-[80px] pointer-events-none"></div>
+      <section
+        className="relative overflow-hidden bg-slate-950 text-white py-24 sm:py-32 flex items-center justify-center"
+        style={{
+          backgroundImage: "url('/imagens/HERO PLATAFORMA TRABALHE LIVRE.png')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        <div className="absolute inset-0 bg-slate-950/70 z-0"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full flex flex-col items-center text-center">
           <span className="text-xs font-bold text-secondary-base uppercase tracking-widest bg-secondary-base/10 px-4 py-1.5 rounded-full mb-6">
