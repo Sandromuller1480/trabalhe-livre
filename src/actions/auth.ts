@@ -3,6 +3,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { LoginInput, ProfessionalRegisterInput, ContractorRegisterInput } from '@/lib/validations/auth'
+import { cookies } from 'next/headers'
 
 interface ActionResponse {
   success: boolean
@@ -88,14 +89,32 @@ async function ensureAdminAccount() {
  * Ação de Login
  */
 export async function login(data: LoginInput): Promise<ActionResponse> {
-  const supabase = await createClient()
   const isAdminLogin =
     data.email.trim().toLowerCase() === 'trabalhelivre@gmail.com' &&
     data.password === '123456SJ'
 
+  if (isAdminLogin) {
+    const cookieStore = await cookies()
+    cookieStore.set('tl_admin_session', 'active', {
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production',
+      path: '/',
+      maxAge: 60 * 60 * 8,
+    })
+
+    return {
+      success: true,
+      message: 'Login realizado com sucesso!',
+      redirectTo: '/admin',
+    }
+  }
+
+  const supabase = await createClient()
+
   let { data: authData, error } = await supabase.auth.signInWithPassword({
-    email: isAdminLogin ? 'admin@trabalhelivre.demo' : data.email,
-    password: isAdminLogin ? 'SenhaDemo123!' : data.password,
+    email: data.email,
+    password: data.password,
   })
 
   if (error) {
@@ -309,6 +328,8 @@ export async function registerContractor(data: ContractorRegisterInput): Promise
  */
 export async function logout(): Promise<ActionResponse> {
   const supabase = await createClient()
+  const cookieStore = await cookies()
+  cookieStore.delete('tl_admin_session')
   await supabase.auth.signOut()
   return {
     success: true,

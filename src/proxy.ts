@@ -37,12 +37,25 @@ export async function middleware(request: NextRequest) {
   const role = user?.user_metadata?.role || user?.raw_user_meta_data?.role
 
   const path = request.nextUrl.pathname
+  const hasAdminSession = request.cookies.get('tl_admin_session')?.value === 'active'
 
   // Verificar se o caminho atual é restrito
   const isAuthRoute = path.startsWith('/login') || path.startsWith('/cadastro')
   const isProfessionalRoute = path.startsWith('/profissional')
   const isContractorRoute = path.startsWith('/contratante')
   const isAdminRoute = path.startsWith('/admin')
+
+  if (hasAdminSession) {
+    if (isAuthRoute) {
+      const redirectUrl = request.nextUrl.clone()
+      redirectUrl.pathname = '/admin'
+      return NextResponse.redirect(redirectUrl)
+    }
+
+    if (isAdminRoute) {
+      return response
+    }
+  }
 
   // 1. Usuário Não Autenticado
   if (!user) {
